@@ -9,7 +9,6 @@ interface SearchRepo {
     suspend fun search(query: String): List<SearchResult>
 }
 
-
 class SearchRepoImpl(
     private val api: SearchApi
 ): SearchRepo {
@@ -17,8 +16,7 @@ class SearchRepoImpl(
         return withContext(Dispatchers.IO) {
             try {
                 val response = api.search(query).execute()
-//                response.body()?.results ?: emptyList()
-                emptyList()
+                response.body()?.data ?: emptyList()
             } catch (ie: Exception) {
                 ie.printStackTrace()
                 emptyList()

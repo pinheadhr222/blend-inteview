@@ -1,5 +1,10 @@
 package com.interview.repo.data
 
+
+data class Result<T>(
+    val data: T
+)
+
 data class SearchResult(
     val id: String,
     val title: String,
@@ -18,3 +23,5 @@ data class ImageResult(
     val animated: Boolean,
     val favorite: Boolean
 )
+
+
