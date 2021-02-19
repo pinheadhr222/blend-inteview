@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name="com.interview.search.SearchActivity"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

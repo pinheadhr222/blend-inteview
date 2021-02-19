@@ -18,13 +18,9 @@ abstract class AlbumHeaderModel : EpoxyModelWithHolder<AlbumHeaderModel.LocalHol
     @EpoxyAttribute
     var album: AlbumInfo? = null
 
-    @EpoxyAttribute
-    var listener: View.OnClickListener? = null
-
     override fun getDefaultLayout(): Int = R.layout.album_header
 
     override fun bind(holder: LocalHolder) {
-        holder.parent.setOnClickListener(listener)
         holder.title.text = album?.title
         holder.description.text = album?.description
 
@@ -34,13 +30,11 @@ abstract class AlbumHeaderModel : EpoxyModelWithHolder<AlbumHeaderModel.LocalHol
     }
 
     inner class LocalHolder: EpoxyHolder() {
-        lateinit var parent: View
         lateinit var title: TextView
         lateinit var image: ImageView
         lateinit var description: TextView
 
         override fun bindView(itemView: View) {
-            parent = itemView.album_header
             title= itemView.title
             image = itemView.image
             description = itemView.description

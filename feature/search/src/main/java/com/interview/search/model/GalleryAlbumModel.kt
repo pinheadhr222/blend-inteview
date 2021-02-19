@@ -10,7 +10,8 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.interview.search.R
 import com.interview.ui.data.AlbumInfo
-import kotlinx.android.synthetic.main.album.view.*
+import kotlinx.android.synthetic.main.album_result.view.*
+
 
 @EpoxyModelClass
 abstract class GalleryAlbumModel : EpoxyModelWithHolder<GalleryAlbumModel.LocalHolder>() {
@@ -21,12 +22,11 @@ abstract class GalleryAlbumModel : EpoxyModelWithHolder<GalleryAlbumModel.LocalH
     @EpoxyAttribute
     var listener: View.OnClickListener? = null
 
-    override fun getDefaultLayout(): Int = R.layout.album
+    override fun getDefaultLayout(): Int = R.layout.album_result
 
     override fun bind(holder: LocalHolder) {
         holder.parent.setOnClickListener(listener)
         holder.title.text = album?.title
-        holder.description.text = album?.description
 
         Glide.with(holder.image)
             .load(album?.coverImage)
@@ -37,13 +37,11 @@ abstract class GalleryAlbumModel : EpoxyModelWithHolder<GalleryAlbumModel.LocalH
         lateinit var parent: View
         lateinit var title: TextView
         lateinit var image: ImageView
-        lateinit var description: TextView
 
         override fun bindView(itemView: View) {
             parent = itemView.album
             title= itemView.title
             image = itemView.image
-            description = itemView.description
         }
     }
 }

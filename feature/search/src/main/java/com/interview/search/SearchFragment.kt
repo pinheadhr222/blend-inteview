@@ -1,6 +1,7 @@
 package com.interview.search
 
 import android.app.SearchManager
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.airbnb.epoxy.AsyncEpoxyController
 import com.airbnb.epoxy.EpoxyItemSpacingDecorator
 import com.interview.search.data.SearchDisplayInfo
 import com.interview.search.model.galleryAlbum
+import com.interview.search.model.loading
+import com.interview.search.model.noResult
 import com.interview.search.vm.SearchViewModel
 import com.interview.ui.Action
 import com.interview.ui.Navigator
@@ -27,7 +30,11 @@ class SearchFragment : Fragment() {
     private lateinit var controller: GridController
 
     companion object {
-        private const val GRID_SPAN_SIZE = 2
+        private const val LOADER_ID = "search_loader_id"
+        private const val NO_RESULTS_ID = "no_results_id"
+
+        private const val PORTRAIT_GRID_SPAN_SIZE = 2
+        private const val LAND_GRID_SPAN_SIZE = 3
 
         fun newInstance(query: String): SearchFragment {
             val args = Bundle()
@@ -49,13 +56,20 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //Configure the Epoxy container
-        //TODO explanation here
-        val layoutManager = GridLayoutManager(context, GRID_SPAN_SIZE)
+        //Determine the number of item of show on a row according to the orientation
+        val spanSize = when (resources.configuration.orientation) {
+            Configuration.ORIENTATION_LANDSCAPE -> LAND_GRID_SPAN_SIZE
+            Configuration.ORIENTATION_PORTRAIT -> PORTRAIT_GRID_SPAN_SIZE
+            else -> PORTRAIT_GRID_SPAN_SIZE
+        }
+
+        //Configure the Epoxy container, which include the LayoutManager and the controller for
+        //create the model to add to the view.
+        val layoutManager = GridLayoutManager(context, spanSize)
         val spacingDecorator = EpoxyItemSpacingDecorator(resources.getDimension(R.dimen.item_spacing).toInt())
 
         controller = GridController()
-        controller.spanCount = GRID_SPAN_SIZE
+        controller.spanCount = spanSize
 
         base_container.adapter = controller.adapter
         base_container.layoutManager = layoutManager
@@ -70,6 +84,8 @@ class SearchFragment : Fragment() {
 
         query?.let {
             viewModel.search(query)
+            //Show loading
+            controller.displayInfo = SearchDisplayInfo(showLoading = true, query = query)
         }
     }
 
@@ -82,14 +98,32 @@ class SearchFragment : Fragment() {
 
         override fun buildModels() {
             displayInfo?.let {
-                it.result.forEach { album ->
+
+                if(it.showLoading) {
+                    loading{
+                        id(LOADER_ID)
+                    }
+                }
+
+                //Show No Result no result was returned
+                if (it.showNoResult) {
+                    noResult {
+                        id(NO_RESULTS_ID)
+                        text(getString(R.string.not_results, it.query))
+                    }
+                }
+
+                it.result?.forEach { album ->
                     galleryAlbum {
                         id(album.id)
                         album(album)
-                        listener(View.OnClickListener {
-                            val action = Action.ViewAlbum(album)
-                            navigator.route(requireActivity(), action)
-                        })
+
+                        if (album.clickable) {
+                            listener(View.OnClickListener {
+                                val action = Action.ViewAlbum(album)
+                                navigator.route(requireActivity(), action)
+                            })
+                        }
                     }
                 }
             }

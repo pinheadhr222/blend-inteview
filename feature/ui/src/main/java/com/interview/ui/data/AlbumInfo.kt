@@ -10,7 +10,8 @@ data class AlbumInfo(
     val description: String,
     val coverImage: String,
     val favorite: Boolean,
-    val images: List<AlbumImageInfo>
+    val images: List<AlbumImageInfo>,
+    val clickable: Boolean = true
 ): Parcelable
 
 @Parcelize

@@ -43,11 +43,15 @@ class SearchViewModel @Inject constructor(
                     description = it.description ?: "",
                     coverImage = imageMap?.get(it.cover)?.link ?: "",
                     favorite = it.favorite,
-                    images = imageMap?.values?.toList() ?: emptyList()
+                    images = imageMap?.values?.toList() ?: emptyList(),
+                    clickable = !imageMap.isNullOrEmpty()
                 )
             }
 
-            _data.value = SearchDisplayInfo(query, result)
+            _data.value = SearchDisplayInfo(
+                showNoResult = result.isNullOrEmpty(),
+                query = query,
+                result = result)
         }
     }
 }
