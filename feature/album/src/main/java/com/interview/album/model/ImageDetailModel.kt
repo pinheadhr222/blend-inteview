@@ -13,18 +13,17 @@ import com.interview.ui.data.AlbumImageInfo
 import kotlinx.android.synthetic.main.album_header.view.*
 
 @EpoxyModelClass
-abstract class AlbumImageModel : EpoxyModelWithHolder<AlbumImageModel.LocalHolder>() {
+abstract class ImageDetailModel : EpoxyModelWithHolder<ImageDetailModel.LocalHolder>() {
 
     @EpoxyAttribute
     var image: AlbumImageInfo? = null
 
-    @EpoxyAttribute
-    var listener: View.OnClickListener? = null
-
-    override fun getDefaultLayout(): Int = R.layout.carousel_image
+    override fun getDefaultLayout(): Int = R.layout.carousel_image_detail
 
     override fun bind(holder: LocalHolder) {
-        holder.image.setOnClickListener(listener)
+        holder.title.text = image?.title
+
+        holder.description.text = image?.description
 
         Glide.with(holder.image)
             .load(image?.link)
@@ -32,10 +31,14 @@ abstract class AlbumImageModel : EpoxyModelWithHolder<AlbumImageModel.LocalHolde
     }
 
     inner class LocalHolder: EpoxyHolder() {
+        lateinit var title: TextView
         lateinit var image: ImageView
+        lateinit var description: TextView
 
         override fun bindView(itemView: View) {
+            title= itemView.title
             image = itemView.image
+            description = itemView.description
         }
     }
 }

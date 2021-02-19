@@ -1,5 +1,6 @@
 package com.interview.search.vm
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +17,7 @@ class SearchViewModel @Inject constructor(
     private val repo: SearchRepo
 ) : ViewModel() {
     private val _data = MutableLiveData<SearchDisplayInfo>()
-    val data = _data
+    val data: LiveData<SearchDisplayInfo> = _data
 
     fun search(query: String) {
         viewModelScope.launch {
