@@ -7,8 +7,8 @@ data class Result<T>(
 
 data class SearchResult(
     val id: String,
-    val title: String,
-    val description: String,
+    val title: String?,
+    val description: String?,
     val cover: String,
     val favorite: Boolean,
     val images: List<ImageResult> ?= emptyList()
@@ -16,8 +16,8 @@ data class SearchResult(
 
 data class ImageResult(
     val id: String,
-    val title: String,
-    val description: String,
+    val title: String?,
+    val description: String?,
     val link: String,
     val type: String,
     val animated: Boolean,

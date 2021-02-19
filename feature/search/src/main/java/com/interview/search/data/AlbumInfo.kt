@@ -1,5 +1,10 @@
 package com.interview.search.data
 
+data class SearchDisplayInfo(
+    val query: String,
+    val result: List<AlbumInfo>
+)
+
 data class AlbumInfo(
     val id: String,
     val title: String,

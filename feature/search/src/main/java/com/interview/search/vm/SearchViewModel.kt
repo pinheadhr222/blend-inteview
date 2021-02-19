@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.interview.repo.SearchRepo
 import com.interview.search.data.AlbumImageInfo
 import com.interview.search.data.AlbumInfo
+import com.interview.search.data.SearchDisplayInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,18 +15,18 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val repo: SearchRepo
 ) : ViewModel() {
-    private val _data = MutableLiveData<List<AlbumInfo>>()
+    private val _data = MutableLiveData<SearchDisplayInfo>()
     val data = _data
 
     fun search(query: String) {
         viewModelScope.launch {
-            _data.value = repo.search(query).map {
+            val result = repo.search(query).map {
                 val imageMap = it.images?.map { image ->
                     val id = image.id
                     val value = AlbumImageInfo (
                         id = image.id,
-                        title = image.title,
-                        description = image.description,
+                        title = image.title ?: "",
+                        description = image.description ?: "",
                         link = image.link,
                         type = image.type,
                         animated = image.animated,
@@ -37,14 +38,15 @@ class SearchViewModel @Inject constructor(
 
                 AlbumInfo(
                     id = it.id,
-                    title = it.title,
-                    description = it.description,
+                    title = it.title ?: "",
+                    description = it.description ?: "",
                     coverImage = imageMap?.get(it.cover)?.link ?: "",
                     favorite = it.favorite,
                     images = imageMap?.values?.toList() ?: emptyList()
                 )
             }
 
+            _data.value = SearchDisplayInfo(query, result)
         }
     }
 }
