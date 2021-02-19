@@ -3,7 +3,6 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 dependencies {
     implementation project(':feature:ui')
-    implementation project(':internal:repo')
 
     implementation hilt.android
     kapt hilt.compiler

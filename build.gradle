@@ -7,9 +7,13 @@ buildscript {
         maven { url 'https://maven.google.com' }
         mavenCentral()
     }
+    ext {
+        kotlin_version = '1.4.30'
+    }
 
     dependencies {
         classpath classpath.values()
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

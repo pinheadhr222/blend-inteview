@@ -1,4 +1,6 @@
-include ':internal:repo'
+include ':feature:album'
 include ':feature:search'
+include ':feature:ui'
+include ':internal:repo'
 include ':app'
 rootProject.name = "blend"

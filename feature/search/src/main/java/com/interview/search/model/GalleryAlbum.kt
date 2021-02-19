@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.interview.search.R
-import com.interview.search.data.AlbumInfo
+import com.interview.ui.data.AlbumInfo
 import kotlinx.android.synthetic.main.album.view.*
 
 @EpoxyModelClass

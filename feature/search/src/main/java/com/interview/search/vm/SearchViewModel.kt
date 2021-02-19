@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.interview.repo.SearchRepo
-import com.interview.search.data.AlbumImageInfo
-import com.interview.search.data.AlbumInfo
 import com.interview.search.data.SearchDisplayInfo
+import com.interview.ui.data.AlbumImageInfo
+import com.interview.ui.data.AlbumInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

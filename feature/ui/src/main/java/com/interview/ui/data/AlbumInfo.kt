@@ -1,9 +1,4 @@
-package com.interview.search.data
-
-data class SearchDisplayInfo(
-    val query: String,
-    val result: List<AlbumInfo>
-)
+package com.interview.ui.data
 
 data class AlbumInfo(
     val id: String,

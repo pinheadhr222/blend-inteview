@@ -41,8 +41,11 @@ android {
 }
 
 dependencies {
-    implementation project(":internal:repo")
+    implementation project(':feature:album')
     implementation project(':feature:search')
+    implementation project(':feature:ui')
+    implementation project(":internal:repo")
+
 
     implementation ui.values()
 
