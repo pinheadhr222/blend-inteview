@@ -1,0 +1,23 @@
+buildscript {
+    apply from: rootProject.file('config/dependencies.gradle')
+
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath classpath.values()
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://maven.google.com' }
+        mavenCentral()
+    }
+}

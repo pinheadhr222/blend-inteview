@@ -1,0 +1,4 @@
+include ':internal:repo'
+include ':feature:search'
+include ':app'
+rootProject.name = "blend"

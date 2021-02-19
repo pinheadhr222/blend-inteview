@@ -1,0 +1,23 @@
+apply from: rootProject.file('config/module.gradle')
+apply plugin: 'dagger.hilt.android.plugin'
+
+dependencies {
+    implementation project(":internal:repo")
+
+    implementation hilt.android
+    kapt hilt.compiler
+
+    implementation ui.values()
+    implementation kotlinx.values()
+
+    implementation epoxy.annotation
+
+    implementation (epoxy.epoxy) {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    implementation (epoxy.databinding) {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    kapt epoxy.processor
+}
