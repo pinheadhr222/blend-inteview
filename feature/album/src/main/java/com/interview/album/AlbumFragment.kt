@@ -24,6 +24,7 @@ class AlbumFragment: Fragment() {
     private val viewModel: AlbumDetailViewModel by activityViewModels()
 
     companion object {
+        private const val KEY_SELECTED_CAROUSEL_POS = "key_selected_carousel_pos"
         private const val CAROUSEL_ID = "images_carousel_container"
         private const val IMAGE_DETAIL_ID = "image_detail_container"
 
@@ -46,6 +47,12 @@ class AlbumFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        savedInstanceState?.let {
+            controller.selectedCarouselImagePos = savedInstanceState.getInt(
+                KEY_SELECTED_CAROUSEL_POS, 0
+            )
+        }
+
         base_container.setController(controller)
 
         viewModel.data.observe(viewLifecycleOwner, {
@@ -59,8 +66,13 @@ class AlbumFragment: Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_SELECTED_CAROUSEL_POS, controller.selectedCarouselImagePos)
+    }
+
     inner class LocalEpoxyController : AsyncEpoxyController() {
-        private var selectedCarouselImagePos = 0
+        var selectedCarouselImagePos = 0
 
         var displayInfo: AlbumDetailDisplayInfo? = null
             set(value) {

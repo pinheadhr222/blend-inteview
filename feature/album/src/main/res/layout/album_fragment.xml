@@ -5,4 +5,6 @@
     android:id="@+id/base_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/album_detail_padding"
+    android:paddingEnd="@dimen/album_detail_padding"
     tools:context=".AlbumActivity" />

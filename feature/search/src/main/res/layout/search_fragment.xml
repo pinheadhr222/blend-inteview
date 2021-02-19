@@ -5,4 +5,6 @@
     android:id="@+id/base_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/search_padding"
+    android:paddingEnd="@dimen/search_padding"
     tools:context=".SearchActivity" />
