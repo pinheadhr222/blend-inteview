@@ -1,5 +1,6 @@
 package com.interview.search
 
+import android.app.SearchManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +14,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     companion object {
-        fun newInstance() = SearchFragment()
+        fun newInstance(query: String): SearchFragment {
+            val args = Bundle()
+            args.putString(SearchManager.QUERY, query)
+
+            val fragment = SearchFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     private  val viewModel: SearchViewModel by activityViewModels()
@@ -26,6 +34,11 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val query = arguments?.getString(SearchManager.QUERY, "")
+
+        query?.let {
+            viewModel.search(query)
+        }
     }
 
 }

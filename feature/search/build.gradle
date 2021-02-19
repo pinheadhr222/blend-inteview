@@ -20,4 +20,6 @@ dependencies {
     }
 
     kapt epoxy.processor
+
+    implementation glide.values()
 }

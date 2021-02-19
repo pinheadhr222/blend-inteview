@@ -1,15 +1,15 @@
-package com.interview.repo.data
+package com.interview.search.data
 
-data class SearchResult(
+data class AlbumInfo(
     val id: String,
     val title: String,
     val description: String,
-    val cover: String,
+    val coverImage: String,
     val favorite: Boolean,
-    val images: List<ImageResult> ?= emptyList()
+    val images: List<AlbumImageInfo>
 )
 
-data class ImageResult(
+data class AlbumImageInfo(
     val id: String,
     val title: String,
     val description: String,

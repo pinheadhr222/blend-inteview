@@ -6,7 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 interface SearchRepo {
-
     suspend fun search(query: String): List<SearchResult>
 }
 
