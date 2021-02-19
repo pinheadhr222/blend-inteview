@@ -25,9 +25,11 @@ abstract class ImageDetailModel : EpoxyModelWithHolder<ImageDetailModel.LocalHol
 
         holder.description.text = image?.description
 
-        Glide.with(holder.image)
-            .load(image?.link)
-            .into(holder.image)
+        image?.let {
+            Glide.with(holder.image)
+                .load(image?.link)
+                .into(holder.image)
+        }
     }
 
     inner class LocalHolder: EpoxyHolder() {
