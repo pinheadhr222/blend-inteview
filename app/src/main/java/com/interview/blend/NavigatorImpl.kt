@@ -10,7 +10,7 @@ import com.interview.ui.data.AlbumInfo
 class NavigatorImpl: Navigator {
     override fun route(context: Context, action: Action) {
         val intent = when(action) {
-            is Action.AlbumAction -> buildAlbumIntent(context, action.albumInfo)
+            is Action.ViewAlbum -> buildAlbumIntent(context, action.albumInfo)
         }
 
         context.startActivity(intent)
@@ -18,7 +18,7 @@ class NavigatorImpl: Navigator {
 
     private fun buildAlbumIntent(context: Context, albumInfo: AlbumInfo): Intent {
         return Intent(context, AlbumActivity::class.java).apply {
-//            putExtra(AlbumActivity.ALBUM_INFO, albumInfo)
+            putExtra(AlbumActivity.ALBUM_INFO, albumInfo)
         }
     }
 }

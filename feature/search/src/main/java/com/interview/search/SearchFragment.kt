@@ -13,11 +13,16 @@ import com.airbnb.epoxy.EpoxyItemSpacingDecorator
 import com.interview.search.data.SearchDisplayInfo
 import com.interview.search.model.galleryAlbum
 import com.interview.search.vm.SearchViewModel
+import com.interview.ui.Action
+import com.interview.ui.Navigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.search_fragment.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
+
+    @Inject lateinit var navigator: Navigator
 
     private lateinit var controller: GridController
 
@@ -45,6 +50,7 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         //Configure the Epoxy container
+        //TODO explanation here
         val layoutManager = GridLayoutManager(context, GRID_SPAN_SIZE)
         val spacingDecorator = EpoxyItemSpacingDecorator(resources.getDimension(R.dimen.item_spacing).toInt())
 
@@ -80,6 +86,10 @@ class SearchFragment : Fragment() {
                     galleryAlbum {
                         id(album.id)
                         album(album)
+                        listener(View.OnClickListener {
+                            val action = Action.ViewAlbum(album)
+                            navigator.route(requireActivity(), action)
+                        })
                     }
                 }
             }

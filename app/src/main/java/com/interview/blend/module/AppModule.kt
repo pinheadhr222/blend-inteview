@@ -1,6 +1,7 @@
 package com.interview.blend.module
 
 import com.interview.blend.NavigatorImpl
+import com.interview.ui.Navigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,5 +12,5 @@ import dagger.hilt.android.components.ActivityComponent
 object AppModule {
 
     @Provides
-    fun provideNavigator() = NavigatorImpl()
+    fun provideNavigator():Navigator = NavigatorImpl()
 }

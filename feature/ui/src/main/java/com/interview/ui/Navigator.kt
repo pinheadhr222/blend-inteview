@@ -10,5 +10,5 @@ interface Navigator {
 
 
 sealed class Action {
-    data class  AlbumAction(val albumInfo: AlbumInfo): Action()
+    data class  ViewAlbum(val albumInfo: AlbumInfo): Action()
 }
