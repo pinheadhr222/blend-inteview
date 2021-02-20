@@ -12,6 +12,7 @@ Internal modules are centered around core functionalities including network call
 UI/Feature modules contain all the ui components, including view models, views, fragments and activities
 - feature/album - ui features associated with albums. This includes the detail view for albums
 - feature/search - Search functionality. This module contains all the component and ui code for getting the user input and displaying the search result
+- feature/ui - Base ui module to hold shared model for all feature modules
 - app - Top level application. This module contains the initialization of the dependency graph
 
 ## Third Party Libraries
